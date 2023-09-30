@@ -1,0 +1,688 @@
+/* Стиль для фона страницы */
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Стиль для заголовков */
+h1, h2, h3 {
+  color: #333;
+}
+
+/* Стиль для текста */
+p {
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Стиль для ссылок */
+a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+/* Стиль для ссылок при наведении */
+a:hover {
+  text-decoration: underline;
+}
+
+/* Общий стиль для таблиц */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+/* Стиль для ячеек таблицы */
+td, th {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+/* Стиль для кнопок */
+button, input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Стиль для кнопок при наведении */
+button:hover, input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Стиль для формы ввода текста */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Стиль для формы */
+form {
+  margin-bottom: 20px;
+}
+
+
+/* Стиль для шапки сайта */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Стиль для логотипа */
+.header__image {
+    flex: 1;
+    max-width: 180px; /* Задайте желаемую ширину */
+}
+
+.header__image img {
+    max-width: 100%; /* Поддержка для разных экранов */
+    height: auto; /* Сохранение пропорций */
+}
+
+
+
+/* Стиль для навигационного меню */
+.header__nav {
+    flex: 1;
+    text-align: right;
+}
+
+.header__menu {
+    list-style: none;
+    padding: 0;
+}
+
+.header__menu li {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.header__link {
+    text-decoration: none;
+    color: #333;
+}
+
+.header__link:hover {
+    text-decoration: underline;
+}
+
+
+/* Стили для контейнера формы */
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+}
+
+/* Стили для заголовка */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Стили для сообщений */
+.alert {
+    list-style-type: none;
+    padding-left: 0;
+    background-color: #f8f9fa;
+    border: 1px solid #d1d6db;
+    border-radius: 3px;
+    color: #333;
+}
+
+/* Стили для формы */
+.login-form {
+    margin-top: 20px;
+}
+
+/* Стили для полей ввода и кнопки */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.btn-primary {
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+}
+
+
+/* Стили для контейнера формы регистрации */
+.registration-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f7f7f7;
+}
+
+/* Стили для заголовка */
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+/* Стили для сообщений */
+.alert {
+    list-style-type: none;
+    padding-left: 0;
+    background-color: #f8f9fa;
+    border: 1px solid #d1d6db;
+    border-radius: 3px;
+    color: #333;
+}
+
+/* Стили для формы регистрации */
+.registration-form {
+    margin-top: 20px;
+}
+
+/* Стили для полей ввода и кнопки */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+
+
+/* Стили для каждой отдельной записи */
+.post {
+    position: relative;
+    max-width: 1000px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 0 auto 20px;
+    background-color: #f7f7f7;
+}
+
+/* Стили для заголовка записи */
+.post-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Стили для текста записи */
+.post-text {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Стили для действий (кнопок) */
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-author {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 18px;
+}
+
+@media screen and (max-width: 768px) {
+    .post-author {
+        position: static; /* Remove absolute positioning */
+        font-size: 16px; /* Adjust font size */
+        margin-top: 10px; /* Add some space above the author's name */
+    }
+}
+
+.btn {
+    width: auto;
+    height: auto;
+    text-align: center;
+    padding: 10px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/*.btn:hover {*/
+/*    filter: brightness(90%);*/
+/*}*/
+
+
+/* Стили для формы поиска */
+.search-form {
+    margin-top: 20px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Стили для формы элементов */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+}
+
+.form-control-range {
+    width: 100%;
+}
+
+/* Стили для кнопки */
+.btn-secondary {
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+
+/* Для звездочки * */
+.required {
+    color: red;
+    margin-left: 5px; /* Добавляем небольшой отступ от метки */
+}
+
+
+/* Стили для таблицы и ячеек */
+#bar-example-14 {
+    float: bottom;
+  border-collapse: separate;
+    width: fit-content;
+  font-family: Arial, sans-serif;
+}
+
+#bar-example-14 caption {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#bar-example-14 th:first-child {
+  width: 30px;
+  background-color: #98dfe3;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  white-space: break-spaces; /* Запрет переноса текста */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#bar-example-14 td {
+    width: 5px;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+}
+
+.text_statistic {
+    float: left;
+    max-width: 600px;
+    margin-right: 20px;
+}
+
+
+/* Стили навыков на странице 'Все записи' */
+.bloko-chips-chip-link {
+    display: inline-block;
+    background: #edeff0;
+    color: #303233;
+    border-radius: 16px;
+    padding: 6px 16px;
+    margin-right: 8px;
+    line-height: 1.43;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+#statistic {
+    max-width: 100%; /* Ограничьте высоту изображения, чтобы она не превышала высоту блока .text_statistic */
+}
+
+.pagination{
+    margin: auto;
+    padding-bottom: 10px;
+}
+
+
+/* Обычное состояние ссылки */
+.post-link {
+    color: #007bff; /* Цвет ссылки */
+    text-decoration: none; /* Убираем подчеркивание */
+    transition: color 0.1s; /* Плавное изменение цвета при наведении */
+}
+
+/* Состояние ссылки при наведении курсора */
+.post-link:hover {
+    color: #48e01e; /* Новый цвет ссылки при наведении */
+    text-decoration: none;
+}
+
+
+/* Стили для новой кнопки "Лайк" */
+.btn-custom-like {
+    margin-top: 5px;
+    width: auto;
+    padding: 10px;
+    background-color: #808080; /* Синий цвет для фона */
+    color: #fff; /* Белый текст */
+}
+
+/* Стили для новой кнопки "Лайк", если пользователь уже поставил лайк */
+.btn-custom-like.liked {
+    background-color: #28a745; /* Зеленый цвет для фона */
+    color: #fff; /* Белый текст */
+}
+
+
+/* Стили для формы поиска с классом "search-form" */
+.search-form {
+    display: flex;
+    position: relative;
+    align-items: baseline;
+} /* Добавлено выравнивание по левому краю */
+
+
+/* Стили для текстового поля */
+.search-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100%;
+    max-width: 300px;
+    margin-right: 10px;
+    flex-grow: 1; /* Добавлено расширение текстового поля, чтобы занять доступное пространство */
+}
+
+
+.btn-search {
+    padding: 8px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-search:hover {
+    color: white;
+    background-color: #0056b3;
+    text-decoration: none;
+}
+
+
+.alert-info {
+    background-color: #3498db; /* Цвет фона */
+    color: #fff; /* Цвет текста */
+    padding: 10px; /* Отступы внутри блока */
+    border-radius: 5px; /* Закругленные углы блока */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Тень блока */
+    margin-bottom: 10px;
+}
+
+/* Гланая страница */
+/* Стили для секций */
+.welcome-section,
+.info-section,
+.user-section,
+.employer-section,
+.join-section {
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    font-size: x-large;
+}
+
+/* Стили для секций */
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+/* Стили для текста в секциях */
+.text {
+    flex: 1;
+    padding: 10px;
+}
+
+/* Стили для изображений в секциях */
+.image {
+    max-width: 300px; /* Ширина изображения (по вашему желанию) */
+    margin-left: 20px; /* Добавляем отступ слева для разделения текста и изображения */
+
+    /* Меняем порядок элементов на узких экранах */
+    flex-direction: column; /* Изменяем направление flex на вертикальное */
+    align-items: center; /* Выравниваем изображение по центру */
+    margin-top: 10px; /* Добавляем отступ сверху для разделения текста и изображения */
+}
+
+.image img {
+    max-width: 100%; /* Максимальная ширина изображения будет подгоняться под доступное место */
+    height: auto;
+}
+
+/* Медиа-запрос для узких экранов (пример: максимальная ширина 768px) */
+@media (max-width: 768px) {
+    /* Изменяем порядок элементов на узких экранах */
+    .content {
+        flex-direction: column; /* Изменяем направление flex на вертикальное */
+        text-align: center; /* Выравниваем текст по центру */
+        font-size: small;
+    }
+
+    .image {
+        margin-top: 20px; /* Увеличиваем отступ сверху для разделения текста и изображения */
+    }
+}
+
+
+
+/* Стили для футера */
+footer {
+    margin-top: auto; /* Отталкивается от верхнего края и прижимается к нижнему */
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo img {
+    max-width: 150px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links ul li {
+    margin: 10px 0;
+}
+
+.footer-links ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-social a {
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+}
+
+html, body {
+    height: 100%;
+}
+
+.container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    margin-bottom: 20px;
+}
+
+/* Убираем подчеркивание у всех ссылок в навигационной панели */
+.navbar-nav .nav-link {
+    text-decoration: none !important;
+}
+
+.navbar-nav li{
+    padding-right: 20px;
+}
+
+/* Стиль активного пункта меню */
+.navbar-nav .nav-link.active {
+    background-color: #007BFF; /* Цвет фона для активной ссылки */
+    color: #FFFFFF; /* Цвет текста для активной ссылки */
+    border-radius: 8px; /* Закругленные углы */
+    padding: 8px 16px; /* Внутренние отступы для кнопки */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Плавное изменение цветов */
+}
+
+/* Стиль при наведении на активный пункт меню */
+.navbar-nav .nav-link.active:hover {
+    background-color: #0056b3; /* Цвет фона при наведении */
+    color: #FFFFFF; /* Цвет текста при наведении */
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+/* Стили для каждой отдельной записи */
+.post.individual {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1300px;
+}
+
+ /* Стили модального окна */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    max-width: max-content;
+    alignment: center;
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Мигающий текст */
+@keyframes blink {
+            0% { color: red; }
+            50% { color: transparent; }
+            100% { color: red; }
+        }
+
+.blinking-text {
+    text-align: center;
+    animation: blink 1s infinite;
+}
+
+/* Стили кнопки закрытия (btn-close) */
+.btn-close {
+    position: absolute;
+    top: 10px; /* Отступ сверху */
+    right: 10px; /* Отступ справа */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 20px; /* Размер шрифта */
+    color: #333; /* Цвет кнопки */
+    padding: 0; /* Убираем внутренние отступы */
+}
+
+
+/* Стили помощи при вводе никнейма-логина */
+.availability-message {
+    /*margin-top: 5px; !* Добавьте необходимые отступы для сообщения *!*/
+    font-weight: bold; /* Жирный текст */
+    font-size: 12px; /* Размер шрифта */
+}
+
+.available {
+    color: green; /* Зеленый цвет для доступного никнейма */
+}
+
+.unavailable {
+    color: red; /* Красный цвет для занятого никнейма */
+}
