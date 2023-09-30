@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            font-size: 100px;
+            color: #e74c3c;
+        }
+
+        h3 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+
+        .link_404 {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #e74c3c;
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        .link_404:hover {
+            background-color: #c0392b;
+        }
+    </style>
+    <title>404</title>
+</head>
+<body>
+
+      <h1>404</h1>
+    <h3>
+    Может вы хотели что-то другое...
+    </h3>
+    <p>Страница выглядит недоступной</p>
+    <a href="{{ url_for('index') }}" class="link_404">На главную</a>
+
+</body>
+</html>

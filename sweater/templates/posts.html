@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ page_title }}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <h1>{{ page_title }}</h1>
+
+<form class="search-form" action="{{ url_for('posts', my_vacancies=my_vacancies) }}" method="GET">
+    <input class="search-input" type="text" name="search_query" placeholder="Поиск по названию вакансии">
+    <button class="btn btn-search" type="submit">Поиск</button>
+    {% if page_title=='Мои записи' %}
+        <input type="hidden" name="my_vacancies" value="true">
+    {% endif %}
+</form>
+
+
+
+
+{#    <input type="checkbox" id="myVacanciesCheckbox" onchange="filterVacancies()" {% if show_my_vacancies %}checked{% endif %}>#}
+{#    <label for="myVacanciesCheckbox">Мои вакансии</label>#}
+
+
+    <div class="post-list">
+    {% if vacancy_pagination.items %}
+        {% for vac in vacancy_pagination %}
+        <section class="post">
+            <h4 class="post-author">
+                {% set author = User.query.get(vac.author_id) %}
+                {% if author %}
+                    {{ author.nickname }}
+                {% else %}
+                    anonymous
+                {% endif %}
+            </h4>
+            <h4 class="post-title"><a href="{{ url_for('show_post', post_id=vac.id) }}" class="post-link">{{ vac.name }}</a></h4>
+            <p class="post-text"><b>Регион: </b>{{ vac.region }}</p>
+            <p class="post-text"><b>Исключения: </b>{{ vac.exclude }}</p>
+            <p class="post-text"><b>Ключевые навыки:</b></p>
+            {% for skill in vac.vacancy_json %}
+               <div class="bloko-chips-chip-link">{{ skill }}</div>
+            {% endfor %}
+            <div class="post-actions">
+                <a href="{{ url_for('show_post', post_id=vac.id) }}" class="btn btn-primary">Читать далее</a>
+
+                <!-- Добавляем кнопку "Лайк" с атрибутом data-post-id -->
+                <button class="btn btn-custom-like like-button {% if liked_posts[loop.index0] %}liked{% endif %}" data-post-id="{{ vac.id }}">❤ {{ vac.likes }}</button>
+
+            </div>
+        </section>
+        {% endfor %}
+    {% else %}
+        <p>Записей не найдено...</p>
+    {% endif %}
+    <script>
+        // Лайки смена цвета и обновление значения
+    document.querySelectorAll('.like-button').forEach(function(likeButton) {
+    likeButton.addEventListener('click', function() {
+        var postId = this.getAttribute('data-post-id');
+
+        fetch('/like_post/' + postId, {
+            method: 'POST'
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            var likeCount = data.likes;
+            var isLiked = data.is_liked;
+
+            likeButton.innerHTML = '❤ ' + likeCount;
+
+            // Переключаем класс "liked" на кнопке
+            likeButton.classList.toggle('liked', isLiked);
+        });
+    });
+});
+
+    // Чекбокс для показа только моих записей
+{#function filterVacancies() {#}
+{#    var checkbox = document.getElementById('myVacanciesCheckbox');#}
+{#    if (checkbox.checked) {#}
+{#        // Если чекбокс отмечен, добавьте параметр my_vacancies=true к текущему URL#}
+{#        window.location.href = window.location.pathname + '?my_vacancies=true';#}
+{#    } else {#}
+{#        // Если чекбокс не отмечен, удалите параметр my_vacancies из текущего URL#}
+{#        window.location.href = window.location.pathname;#}
+{#    }#}
+{#/}#}
+
+</script>
+    </div>
+
+<nav class="pagination">
+    <ul class="pagination">
+        {% if vacancy_pagination.has_prev %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('posts', page=vacancy_pagination.prev_num, my_vacancies=my_vacancies, search_query=search_query) }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link" aria-hidden="true">&laquo;</span>
+            </li>
+        {% endif %}
+
+        {% set total_pages = (vacancy_pagination.total - 1) // vacancy_pagination.per_page + 1 %}
+
+        {% if total_pages <= 5 %}
+            {% for page_num in vacancy_pagination.iter_pages() %}
+                {% if page_num %}
+                    {% if vacancy_pagination.page == page_num %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ page_num }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('posts', page=page_num, my_vacancies=my_vacancies, search_query=search_query) }}">{{ page_num }}</a>
+                        </li>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            {% if vacancy_pagination.page <= 2 %}
+                {% for page_num in range(1, 4) %}
+                    {% if vacancy_pagination.page == page_num %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ page_num }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('posts', page=page_num, my_vacancies=my_vacancies, search_query=search_query) }}">{{ page_num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            {% elif vacancy_pagination.page > total_pages - 2 %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+                {% for page_num in range(total_pages - 2, total_pages + 1) %}
+                    {% if vacancy_pagination.page == page_num %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ page_num }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('posts', page=page_num, my_vacancies=my_vacancies, search_query=search_query) }}">{{ page_num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+                {% for page_num in range(vacancy_pagination.page - 1, vacancy_pagination.page + 2) %}
+                    {% if vacancy_pagination.page == page_num %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ page_num }}</span>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('posts', page=page_num, my_vacancies=my_vacancies, search_query=search_query) }}">{{ page_num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                <li class="page-item disabled">
+                    <span class="page-link">...</span>
+                </li>
+            {% endif %}
+        {% endif %}
+
+        {% if vacancy_pagination.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('posts', page=vacancy_pagination.next_num, my_vacancies=my_vacancies, search_query=search_query) }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link" aria-hidden="true">&raquo;</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+</div>
+{% endblock %}

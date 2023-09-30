@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+График
+{% endblock %}
+
+{% block body %}
+    <h1>Статистика</h1>
+    <br>
+<div class="post individual">
+<div class="text_statistic">
+    <h4>
+        <b>Вакансии: </b>{{ vacancy.name }}
+        <br>
+        <b>Исключения: </b>{{ vacancy.exclude }}
+        <br>
+        <b>Регион: </b>{{ vacancy.region }}
+    </h4>
+    <p>Обработано вакансий: {{ vacancy.quantity }}</p>
+    <img id="statistic" src="data:image/png;base64,{{image}}" alt="Pie Chart">
+    </div>
+
+<table id="bar-example-14" class="horizontal-table">
+  <thead>
+    <tr>
+      <th scope="col"> Навык </th>
+      <th scope="col"> Кол-во упоминаний </th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for x in vacancy.vacancy_json.items() %}
+    <tr>
+      <th scope="row">{{ x[0] }}</th>
+      <td><span class="bar-data">{{ x[1] }}</span></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+
+
+<a href="{{ url_for('posts') }}"><button type="button" class="btn btn-primary">Все записи</button></a>
+
+{% endblock %}

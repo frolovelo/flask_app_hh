@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+
+{% block body %}
+    <div class="welcome-section">
+        <div class="content">
+            <div class="text">
+                <h2>Добро пожаловать на <b>frolofelo.ru</b></h2>
+                <p>Найдите свой путь к успеху с нами!</p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/1.png') }}" alt="Логотип">
+            </div>
+        </div>
+    </div>
+    <div class="info-section">
+        <div class="content">
+            <div class="text">
+                <h3>Сконцентрируйтесь на ключевых навыках и перспективах роста вашей карьеры</h3>
+                <p>Уникальная платформа, которая соединяет соискателей и работодателей, помогая обеим сторонам понять, какие навыки на самом деле необходимы для успешной карьеры.</p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/2.png') }}" alt="Логотип">
+            </div>
+        </div>
+    </div>
+    <div class="user-section">
+        <div class="content">
+            <div class="text">
+                <h4>Для соискателей:</h4>
+                <p>Чувствуете себя потерянными, пытаясь понять, какие навыки требуются для того, чтобы получить заветный оффер? <b>frolofelo.ru</b> предоставляет вам инструменты и рекомендации, основанные на анализе рынка труда и запросах работодателей, чтобы вы могли точно знать, чему стоит уделить внимание в своем обучении.</p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/3.png') }}" alt="Логотип">
+            </div>
+        </div>
+    </div>
+    <div class="employer-section">
+        <div class="content">
+            <div class="text">
+                <h4>Для работодателей:</h4>
+                <p>Составление вакансий бывает сложным, особенно когда вы не уверены, какие навыки и качества действительно нужны для идеального кандидата. <b>frolofelo.ru</b> поможет вам разработать ясные и конкретные требования, что упростит подбор квалифицированных сотрудников и повысит эффективность вашего бизнеса.</p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/4.png') }}" alt="Логотип">
+            </div>
+        </div>
+    </div>
+    <div class="join-section">
+        <div class="content">
+            <div class="text">
+                <p>Присоединяйтесь и начните свой путь к успешной карьере или сбалансированной команде. У нас есть инструменты, чтобы сделать процесс поиска <b>навыков</b> легче и эффективнее.</p>
+            </div>
+            <div class="image">
+                <img src="{{ url_for('static', filename='img/5.png') }}" alt="Логотип">
+            </div>
+        </div>
+    </div>
+{% endblock %}

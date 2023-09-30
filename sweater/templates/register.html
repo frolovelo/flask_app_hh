@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Регистрация
+{% endblock %}
+
+{% block body %}
+<div class="registration-container">
+    <h1>Регистрация</h1>
+
+    <form method="POST" class="registration-form">
+        <div class="form-group">
+            <label for="nickname">Никнейм<span class="required">*</span></label>
+            <input type="text" name="nickname" id="nickname" class="form-control" required
+            onkeydown="return (event.key !== ' ' && event.key !== 'Spacebar');" maxlength="30">
+            <div class="availability-message" id="nickname-availability-message"></div>
+        </div>
+        <div class="form-group">
+            <label for="login">Логин<span class="required">*</span></label>
+            <input type="text" name="login" id="login" class="form-control" required
+            onkeydown="return (event.key !== ' ' && event.key !== 'Spacebar');" maxlength="128">
+            <div class="availability-message" id="login-availability-message"></div>
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль<span class="required">*</span></label>
+            <input type="password" name="password" id="password" class="form-control" required
+            onkeydown="return (event.key !== ' ' && event.key !== 'Spacebar');">
+        </div>
+        <div class="form-group">
+            <label for="password2">Повторите пароль<span class="required">*</span></label>
+            <input type="password" name="password2" id="password2" class="form-control" required
+            onkeydown="return (event.key !== ' ' && event.key !== 'Spacebar');">
+        </div>
+        <div class="form-group">
+            <a href="{{ url_for('login_page') }}">Уже есть аккаунт?</a>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Зарегистрироваться" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    // Проверка доступности никнейма
+    $('#nickname').on('input', function() {
+        var nickname = $(this).val();
+        if (nickname.length > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '/check_nickname_availability', // URL маршрута для проверки никнейма
+                data: {nickname: nickname},
+                success: function(data) {
+                    var availabilityMessage = $('#nickname-availability-message');
+                    if (data.available) {
+                        availabilityMessage.text('никнейм доступен').removeClass('unavailable').addClass('available');
+                    } else {
+                        availabilityMessage.text('никнейм занят').removeClass('available').addClass('unavailable');
+                    }
+                }
+            });
+        } else {
+            $('#nickname-availability-message').text('').removeClass('available unavailable');
+        }
+    });
+
+    // Проверка доступности логина
+    $('#login').on('input', function() {
+        var login = $(this).val();
+        if (login.length > 0) {
+            $.ajax({
+                type: 'POST',
+                url: '/check_login_availability', // URL маршрута для проверки логина
+                data: {login: login},
+                success: function(data) {
+                    var availabilityMessage = $('#login-availability-message');
+                    if (data.available) {
+                        availabilityMessage.text('логин доступен').removeClass('unavailable').addClass('available');
+                    } else {
+                        availabilityMessage.text('логин занят').removeClass('available').addClass('unavailable');
+                    }
+                }
+            });
+        } else {
+            $('#login-availability-message').text('').removeClass('available unavailable');
+        }
+    });
+});
+</script>
+
+{% endblock %}

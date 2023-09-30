@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Добавление записи
+{% endblock %}
+
+{% block body %}
+<h1>Добавление записи</h1>
+
+<form method="post" class="form-control">
+    <p>Титульник:</p>
+    <p><input maxlength="30" type="text" name="title" placeholder="Введите заголовок статьи" class="form-control" required></p>
+    <p>Текст:</p>
+    <p><textarea minlength="5" type="text" name="text" placeholder="Введите текст статьи" class="form-control" required></textarea></p>
+    <button type="submit">Добавить в бд</button>
+</form>
+{% endblock %}
