@@ -8,7 +8,7 @@
 
 ![Static Badge](https://img.shields.io/badge/python-3.11-blue)
 ![Static Badge](https://img.shields.io/badge/Flask-2.3.2-blue)
-![Static Badge](https://img.shields.io/badge/PostgreSQL-blue)
+![Static Badge](https://img.shields.io/badge/PostgreSQL-16.0-blue)
 ![Static Badge](https://img.shields.io/badge/SQLAlchemy-2.0.2-red)
 ![Static Badge](https://img.shields.io/badge/Jinja2-3.1.2-red)
 ![Static Badge](https://img.shields.io/badge/pylint_score-9%2C5-green)
