@@ -58,7 +58,7 @@
 
 </details>
 <p align="center">
-<img style="width: 600px" src="https://i.postimg.cc/59n45HDt/photo-2023-10-01-10-55-07.jpg" alt="Ключевые навыки" border="0">
+<img style="width: 600px" src="https://i.postimg.cc/Nf1JN6Fc/2023-10-01-193534.png" alt="Ключевые навыки" border="0">
 </p>
 
 
