@@ -1,10 +1,10 @@
 """Миграция БД"""
-from sweater import app, db
-# Migration Alembic want this row :)
-# Version Flask-Migration dawngrade!!!
-from sweater.models import User, Vacancy, Like
 from flask_migrate import Migrate
 from flask_script import Manager
+# Migration Alembic want this row :)
+# Version Flask-Migration downgrade if you have exception!!!
+from sweater.models import User, Vacancy, Like
+from sweater import app, db
 
 migrate = Migrate(app, db)
 manager = Manager(app)
