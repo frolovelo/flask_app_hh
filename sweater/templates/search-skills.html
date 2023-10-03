@@ -29,14 +29,9 @@
         <option value="4">Выше среднего</option>
         <option value="5">Высокая</option>
     </select>
-                <script>
-    // Заблокировать опцию "Средняя"
-    document.querySelector('#temp option[value="3"]').disabled = true;
-    document.querySelector('#temp option[value="4"]').disabled = true;
-    document.querySelector('#temp option[value="5"]').disabled = true;
-</script>
+    {#  Блокируем некоторые опции  #}
+    <script src="{{ url_for('static', filename='js/BlockSearch.js') }}"></script>
 </div>
-
 
             <div class="form-group">
                 <label for="area">Выберите регион для поиска:</label>
