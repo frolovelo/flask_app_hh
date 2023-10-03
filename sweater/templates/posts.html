@@ -47,7 +47,7 @@
                 <a href="{{ url_for('show_post', post_id=vac.id) }}" class="btn btn-primary">Читать далее</a>
 
                 <!-- Добавляем кнопку "Лайк" с атрибутом data-post-id -->
-                <button class="btn btn-custom-like like-button {% if liked_posts[loop.index0] %}liked{% endif %}" data-post-id="{{ vac.id }}">❤ {{ vac.likes }}</button>
+                <button class="btn btn-custom-like like-button {% if liked_posts[loop.index0] %}liked{% endif %}" data-post-id="{{ vac.id }}">🤍{{ vac.likes }}</button>
 
             </div>
         </section>
