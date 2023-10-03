@@ -39,38 +39,30 @@ def index():
 @login_required
 def posts():
     """Пагинация всех записей вакансий"""
-    page = request.args.get('page', 1, type=int)  # Получите номер страницы из URL, по умолчанию 1
+    page = request.args.get('page', 1, type=int)  # Получение номера страницы из URL, по умолчанию 1
     per_page = 5  # Количество результатов на странице
 
-    # Получите текущего пользователя
     user = current_user
     print(f'{request.args=}')
-    # Получите параметр my_vacancies из URL
     show_my_vacancies = request.args.get('my_vacancies', type=bool)
 
-    # Получите параметр search_query из URL
     search_query = request.args.get('search_query', '')
 
     if show_my_vacancies:
-        # Если параметр my_vacancies=true, показать только вакансии, созданные текущим пользователем
-        print('TRUE')
+        # Если параметр true, показать только вакансии, созданные текущим пользователем
         title = 'Мои записи'
         base_query = Vacancy.query.filter_by(author_id=user.id)
     else:
         title = 'Все записи'
-        print('False')
-        # Измените запрос к базе данных в зависимости от параметров
         base_query = Vacancy.query
 
     # Выполните поиск вакансий по названию с учетом регистра
     if search_query:
         base_query = base_query.filter(Vacancy.name.ilike(f'%{search_query}%'))
 
-    # Добавьте параметр my_vacancies к URL вручную для ссылок на предыдущую и следующую страницу
+    # Добавляем параметр my_vacancies к URL вручную для ссылок на предыдущую и следующую страницу
     url_params = {'page': page}
-    print(f'{show_my_vacancies=}')
     if show_my_vacancies:
-        print("МОИ!!!!!!!!!!!!!!!!!")
         url_params['my_vacancies'] = True
     if search_query:
         url_params['search_query'] = search_query
@@ -78,8 +70,8 @@ def posts():
         base_query.order_by(Vacancy.likes.desc())
         .paginate(page=page, per_page=per_page)
     )
-    print(*vacancy_pagination)
-    # Создайте список, чтобы хранить информацию о том, лайкал ли пользователь каждый пост на текущей странице
+
+    # Список, чтобы хранить информацию о том, лайкал ли пользователь каждый пост на текущей странице
     liked_posts = [user.has_liked_post(vacancy.id) for vacancy in vacancy_pagination.items]
     return render_template("posts.html",
                            vacancy_pagination=vacancy_pagination,
@@ -89,8 +81,6 @@ def posts():
                            **url_params)
 
 
-#
-#
 @app.route('/post/<int:post_id>')
 @login_required
 def show_post(post_id):
@@ -293,10 +283,9 @@ def page_not_found(e):
 def delete_account():
     """Удаляет аккаунт и его записи из БД"""
     user_to_del = User.query.filter_by(id=current_user.id).first()
-    print(current_user.id)
 
     if user_to_del:
-        # Удаление всех лайков, связанных с пользователем
+        # Удаление всех лайков, связанных с пользователем (ON CASCADE было бы написать в бд проще)
         Like.query.filter_by(user_id=current_user.id).delete()
         Vacancy.query.filter_by(author_id=current_user.id).delete()
 
