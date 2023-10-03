@@ -1,15 +1,17 @@
+"""Взаимодействие с HH.RU.API"""
 import base64
 import io
 import textwrap
 import time
 
-import requests as requests
 from collections import Counter
+import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 
 
 def time_score(func):
+    """Замер времени выполнения"""
     def wrapper(*args, **kwargs):
         start = time.time()
         res = func(*args, **kwargs)
@@ -29,7 +31,6 @@ def get_areas() -> dict[str, int]:
     url = 'https://api.hh.ru/areas'
     response = requests.get(url)
     data = response.json()
-    # print(data)
     dct = {x['id']: x['name'] for x in data}
     for i in data:
         for j in i['areas']:
@@ -37,11 +38,12 @@ def get_areas() -> dict[str, int]:
     return dct
 
 
-# print(get_areas())
-
-
 @time_score
-def get_static(name_vacancy: str, pages: int = 1, per: int = 24, region: tuple[str] = None, name_exclude: str = None):
+def get_static(name_vacancy: str,
+               pages: int = 1,
+               per: int = 24,
+               region: list[str] = None,
+               name_exclude: str = None):
     """
     Запрос к hh.api для получения ключевых навыков по вакансии
     Максимум 120 вакансий - ограничение бесплатного api
@@ -52,7 +54,10 @@ def get_static(name_vacancy: str, pages: int = 1, per: int = 24, region: tuple[s
     :param region: Название региона и id.
     :param name_exclude: Слова исключения.
 
-    :return: Отсортированный словарь навыков, Название региона, Кол-во обработанных вакансий, Слова исключения
+    :return: Отсортированный словарь навыков,
+    Название региона,
+    Кол-во обработанных вакансий,
+    Слова исключения
     """
 
     name_area = region[0]
@@ -92,7 +97,7 @@ def get_static(name_vacancy: str, pages: int = 1, per: int = 24, region: tuple[s
 
 # j = 'Python Backend Developer'
 # a, b, c, d = get_static(j, pages=1, region=('Россия', '113'))
-# print(c)  # 2,9 - 1 x 24 - начальный вариант
+# print(c)  # 2,9 сек - 1 x 24 - начальный вариант
 
 
 @time_score
@@ -118,11 +123,13 @@ def get_image(dct: dict, quantity: int = 7):
                         'linewidth': 1,
                         'antialiased': True},
             explode=explode,
-            textprops={'fontsize': 10})  # Установите подходящий размер шрифта
-    # print(lst)
+            textprops={'fontsize': 10})
+
     plt.axis('equal')
     buffer = io.BytesIO()
-    plt.savefig(buffer, format='png', transparent=True)
+    plt.savefig(buffer,
+                format='png',
+                transparent=True)
 
     # Конвертируем буфер в строку base64 и получаем данные изображения
     buffer.seek(1)
