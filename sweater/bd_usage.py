@@ -51,7 +51,7 @@ def create_vacancy(author_id: int, name: str, exclude: str, region: str, quantit
         return False
 
 
-def check_old_vacancy(name: str, region: str, quantity: int, exclude: str):
+def check_old_vacancy(name: str, region: tuple|list, quantity: int, exclude: str):
     """
     Проверяет наличие старых записей о вакансии в базе данных на основе заданных параметров.
 
@@ -76,5 +76,4 @@ def check_old_vacancy(name: str, region: str, quantity: int, exclude: str):
         quantity=quantity,
         exclude=exclude
     ).filter(Vacancy.date_create >= one_month_ago).first()
-    print('Нашёл:', existing_vacancy)
     return existing_vacancy
