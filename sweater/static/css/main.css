@@ -686,3 +686,43 @@ html, body {
 .unavailable {
     color: red; /* Красный цвет для занятого никнейма */
 }
+
+/* 404 */
+.error-page {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+}
+
+/* Стилизуем заголовок */
+.error-page h1 {
+    font-size: 36px;
+    color: #ff0000; /* Красный цвет для сообщения об ошибке */
+}
+
+/* Стилизуем подзаголовок */
+.error-page h3 {
+    font-size: 18px;
+    color: #333; /* Черный цвет для текста */
+}
+
+/* Стилизуем абзац */
+.error-page p {
+    font-size: 16px;
+    color: #555; /* Темно-серый цвет для текста */
+}
+
+/* Стилизуем ссылку */
+.error-page a.link_404 {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Синий цвет для ссылки */
+    color: #fff; /* Белый цвет для текста ссылки */
+    text-decoration: none;
+    border-radius: 5px; /* Закругляем углы */
+    margin-top: 10px;
+}
+
+.error-page a.link_404:hover {
+    background-color: #0056b3; /* Изменяем цвет при наведении */
+}
