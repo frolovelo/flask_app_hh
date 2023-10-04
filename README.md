@@ -11,7 +11,7 @@
 ![Static Badge](https://img.shields.io/badge/PostgreSQL-16.0-blue)
 ![Static Badge](https://img.shields.io/badge/SQLAlchemy-2.0.2-red)
 ![Static Badge](https://img.shields.io/badge/Jinja2-3.1.2-red)
-![Static Badge](https://img.shields.io/badge/pylint_score-9%2C5-green)
+![Static Badge](https://img.shields.io/badge/pylint_score-9%2C44-green)
 
 # Основные разделы
 ### 1. Поиск навыков
