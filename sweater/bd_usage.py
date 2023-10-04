@@ -1,3 +1,4 @@
+"""Работа с бд PostgreSQL"""
 from datetime import datetime, timedelta
 from sweater.models import Vacancy
 from sweater import db
@@ -22,7 +23,12 @@ def clear_format(name: str, exclude: str):
     return name, exclude
 
 
-def create_vacancy(author_id: int, name: str, exclude: str, region: str, quantity: int, vacancy_json: dict):
+def create_vacancy(author_id: int,
+                   name: str,
+                   exclude: str,
+                   region: str,
+                   quantity: int,
+                   vacancy_json: dict):
     """
     Создает запись о вакансии в базе данных.
 
@@ -51,7 +57,7 @@ def create_vacancy(author_id: int, name: str, exclude: str, region: str, quantit
         return False
 
 
-def check_old_vacancy(name: str, region: tuple|list, quantity: int, exclude: str):
+def check_old_vacancy(name: str, region: tuple | list, quantity: int, exclude: str):
     """
     Проверяет наличие старых записей о вакансии в базе данных на основе заданных параметров.
 
@@ -63,7 +69,7 @@ def check_old_vacancy(name: str, region: tuple|list, quantity: int, exclude: str
     :return: Запись о вакансии, если найдена, в противном случае - None.
     :rtype: Vacancy or None
     """
-    if not len(exclude):
+    if not exclude:
         exclude = 'не заданы'
     region = region[0]
 

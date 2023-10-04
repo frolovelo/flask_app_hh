@@ -60,10 +60,8 @@ def get_static(name_vacancy: str,
     Слова исключения
     """
 
-    name_area = region[0]
-    area_id = region[1]
-    count = 0
-    dct = Counter()
+    name_area, area_id = region if region else ('', '')
+
     name_vacancy = ' OR '.join([f'"{i.strip()}"' for i in name_vacancy.split(',')])
 
     if name_exclude:
@@ -72,12 +70,14 @@ def get_static(name_vacancy: str,
         name_exclude = 'не заданы'
 
     url = 'https://api.hh.ru/vacancies'
-    params = {'text': name_vacancy, 'per_page': per, 'area': area_id, 'page': None}
+    sorted_dict = Counter()
+    count = 0
+
     for i in range(1, pages + 1):
-        params['page'] = i
+        params = {'text': name_vacancy, 'per_page': per, 'area': area_id, 'page': i}
         response = requests.get(url, params=params)
         data = response.json()
-        vacancy_ids = [item['id'] for item in data['items']]
+        vacancy_ids = [item['id'] for item in data.get('items', [])]
 
         for vacancy_id in vacancy_ids:
             response = requests.get(f'https://api.hh.ru/vacancies/{vacancy_id}')
@@ -85,14 +85,11 @@ def get_static(name_vacancy: str,
             count += 1
             if "key_skills" in data:
                 key_skills = [skill['name'].strip() for skill in data['key_skills']]
-                dct.update(key_skills)
+                sorted_dict.update(key_skills)
             else:
-                break
+                return {}, '', -1, ''
 
-    dct = dict(dct)
-    lst_sorted_top15 = sorted(dct.items(), key=lambda x: -x[1])[:15]
-    sorted_dict = dict(lst_sorted_top15)
-    return sorted_dict, name_area, count, name_exclude
+    return dict(sorted_dict.most_common(15)), name_area, count, name_exclude
 
 
 # j = 'Python Backend Developer'
@@ -110,7 +107,7 @@ def get_image(dct: dict, quantity: int = 7):
 
     :return: Строку base64
     """
-    lst_sorted_top7 = [i for i in dct.items()][:quantity]
+    lst_sorted_top7 = list(dct.items())[:quantity]
     head = ['Навык', 'Кол-во упоминаний']
     df = pd.DataFrame(lst_sorted_top7, columns=head)
 

@@ -1,8 +1,9 @@
+"""Маршруты приложения"""
 from flask import request, render_template, redirect, url_for, flash, jsonify
 from flask_login import login_user, login_required, logout_user, current_user
+from werkzeug.security import check_password_hash, generate_password_hash
 from sweater import app, db
 from sweater.models import User, Vacancy, Like
-from werkzeug.security import check_password_hash, generate_password_hash
 from sweater.hh import get_static, get_areas, get_image
 from sweater.bd_usage import create_vacancy, check_old_vacancy, clear_format
 
@@ -150,8 +151,7 @@ def login_page():
             if next_page:
                 return redirect(next_page)
             return redirect(url_for('index'))
-        else:
-            flash('Пароль неверный/Аккаунт не найден')
+        flash('Пароль неверный/Аккаунт не найден')
 
     return render_template('login.html')
 
@@ -189,8 +189,7 @@ def check_nickname_availability():
     user = User.query.filter_by(nickname=nickname).first()
     if user:
         return jsonify({'available': False})
-    else:
-        return jsonify({'available': True})
+    return jsonify({'available': True})
 
 
 @app.route('/check_login_availability', methods=['POST'])
@@ -200,8 +199,7 @@ def check_login_availability():
     user = User.query.filter_by(login=login).first()
     if user:
         return jsonify({'available': False})
-    else:
-        return jsonify({'available': True})
+    return jsonify({'available': True})
 
 
 @app.route('/logout', methods=['GET', 'POST'])
@@ -241,39 +239,43 @@ def search_skills():
     temp = int(request.form.get('temp'))
     area = request.form.get('area')
     name_exclude = request.form.get('name_exclude')
-    if not any([i in ";!./?" for i in name_vacancy]) and not any([i in ";!./?" for i in name_exclude]):
-        area = area.split()
-        name_vacancy, name_exclude = clear_format(name_vacancy, name_exclude)
-        old_vacancy = check_old_vacancy(name_vacancy, area, temp * 24, name_exclude)
-        if old_vacancy:
-            image = get_image(old_vacancy.vacancy_json)
-            return render_template('statistic.html',
-                                   image=image,
-                                   vacancy=old_vacancy,
-                                   col=old_vacancy.quantity // 24 * 24)
-
-        vacancy_json, area, count, name_exclude = get_static(name_vacancy,
-                                                             pages=temp,
-                                                             region=area,
-                                                             name_exclude=name_exclude)
-        if len(vacancy_json) == 0:
-            flash('Вакансий по запросу не найдено...')
-            area = get_areas()
-            return render_template('search-skills.html', area=area)
-        vacancy = create_vacancy(current_user.id, name_vacancy, name_exclude, area, count, vacancy_json)
-        image = get_image(vacancy.vacancy_json)
-        return render_template('statistic.html',
-                               image=image,
-                               vacancy=vacancy,
-                               col=vacancy.quantity // 24 * 24)
-    else:
+    if any(i in ";!./?" for i in name_vacancy) or any(i in ";!./?" for i in name_exclude):
         flash('Используйте только запятые при разделении вакансий!')
         area = get_areas()
         return render_template('search-skills.html', area=area)
 
+    area = area.split()
+    name_vacancy, name_exclude = clear_format(name_vacancy, name_exclude)
+    old_vacancy = check_old_vacancy(name_vacancy, area, temp * 24, name_exclude)
+    if old_vacancy:
+        image = get_image(old_vacancy.vacancy_json)
+        return render_template('statistic.html',
+                               image=image,
+                               vacancy=old_vacancy,
+                               col=old_vacancy.quantity // 24 * 24)
+
+    vacancy_json, area, count, name_exclude = get_static(name_vacancy,
+                                                         pages=temp,
+                                                         region=area,
+                                                         name_exclude=name_exclude)
+    if count < 0:
+        flash('Произошла ошибка при запросе, попробуйте позже!')
+        area = get_areas()
+        return render_template('search-skills.html', area=area)
+    if len(vacancy_json) == 0:
+        flash('Вакансий по запросу не найдено...')
+        area = get_areas()
+        return render_template('search-skills.html', area=area)
+    vacancy = create_vacancy(current_user.id, name_vacancy, name_exclude, area, count, vacancy_json)
+    image = get_image(vacancy.vacancy_json)
+    return render_template('statistic.html',
+                           image=image,
+                           vacancy=vacancy,
+                           col=vacancy.quantity // 24 * 24)
+
 
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found():
     """404"""
     return render_template('error.html'), 404
 
@@ -295,6 +297,6 @@ def delete_account():
         logout_user()  # Выход пользователя из системы
         flash('Аккаунт удален!')
         return jsonify({'message': 'Аккаунт успешно удален'}), 200
-    else:
-        flash('Произошла ошибка, пользователь не удален...')
-        return jsonify({'message': 'Ошибка удаления аккаунта'}), 500
+
+    flash('Произошла ошибка, пользователь не удален...')
+    return jsonify({'message': 'Ошибка удаления аккаунта'}), 500

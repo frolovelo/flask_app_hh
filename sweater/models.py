@@ -1,9 +1,9 @@
+"""Модели БД"""
 from datetime import datetime
-
-from flask_login import UserMixin
-from sweater import db, manager_login
 import json
+from flask_login import UserMixin
 from sqlalchemy import TypeDecorator, Text
+from sweater import db, manager_login
 
 
 class JsonType(TypeDecorator):
